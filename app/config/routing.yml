@@ -1,0 +1,4 @@
+front_controller:
+    resource: '@UnicornFarmBundle/Controller/Rest'
+    type: annotation
+    prefix: /api
