@@ -55,6 +55,48 @@ class StoreController extends Controller
     }
 
     /**
+     * @SWG\Post(
+     *      path="/store/buy",
+     *      tags={"store"},
+     *      summary="Buy a unicorn.",
+     *      description="Buy a unicorn",
+     *      operationId="buyUnicornAction",
+     *      produces={"application/json"},
+     *      @SWG\Parameter(
+     *         name="unicornId",
+     *         required=true,
+     *         in="query",
+     *         description="The unicorn id",
+     *         type="integer",
+     *     ),
+     *      @SWG\Parameter(
+     *         name="userId",
+     *         required=true,
+     *         in="query",
+     *         description="The user id",
+     *         type="integer",
+     *     ),
+     *     @SWG\Response(
+     *          response=202,
+     *          description="Accepted",
+     *          examples={
+     *              "application/json":{
+     *                  "id":1,
+     *                  "name":"pinky",
+     *                  "description":"pink fury",
+     *                  "available":false,
+     *                  "user": {
+     *                      "id":1,
+     *                      "firstName":"David",
+     *                      "lastName":"",
+     *                      "email":"",
+     *                  },
+     *                  "posts": {},
+     *              }
+     *          }
+     *     ),
+     * )
+     *
      * @Route(path="/store/buy", methods={"POST"})
      * @param Request $request
      * @return Response

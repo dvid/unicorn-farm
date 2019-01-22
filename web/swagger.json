@@ -9,6 +9,424 @@
         "version": "3.0.0"
     },
     "paths": {
+        "/post/create": {
+            "post": {
+                "tags": [
+                    "post"
+                ],
+                "summary": "Create a post.",
+                "description": "Create a post",
+                "operationId": "createPostAction",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "firstName",
+                        "in": "query",
+                        "description": "The user first name",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "lastName",
+                        "in": "query",
+                        "description": "The user last name",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "text",
+                        "in": "query",
+                        "description": "The content of the post ...",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "unicornId",
+                        "in": "query",
+                        "description": "The unicorn id to link the post to",
+                        "required": false,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "examples": {
+                            "application/json": {
+                                "id": 1,
+                                "user": {
+                                    "id": 1,
+                                    "firstName": "David",
+                                    "lastName": "",
+                                    "email": ""
+                                },
+                                "unicorn": null,
+                                "text": "content of the post ...",
+                                "createdAt": {
+                                    "timezone": {
+                                        "name": "Europe/Brussels",
+                                        "location": {
+                                            "country_code": "BE",
+                                            "latitude": 50.83333,
+                                            "longitude": 4.33333,
+                                            "comments": ""
+                                        }
+                                    },
+                                    "offset": 3600,
+                                    "timestamp": 1548204515
+                                },
+                                "modifiedAt": {
+                                    "timezone": {
+                                        "name": "Europe/Brussels",
+                                        "location": {
+                                            "country_code": "BE",
+                                            "latitude": 50.83333,
+                                            "longitude": 4.33333,
+                                            "comments": ""
+                                        }
+                                    },
+                                    "offset": 3600,
+                                    "timestamp": 1548204515
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/post/link": {
+            "post": {
+                "tags": [
+                    "post"
+                ],
+                "summary": "Link an existing post to a unicorn.",
+                "description": "Link an existing post to a unicorn",
+                "operationId": "linkPostToUnicornAction",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "postId",
+                        "in": "query",
+                        "description": "The id of the post",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "unicornId",
+                        "in": "query",
+                        "description": "The id of the unicorn to link to",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "202": {
+                        "description": "Accepted",
+                        "examples": {
+                            "application/json": {
+                                "id": 1,
+                                "user": {
+                                    "id": 1,
+                                    "firstName": "David",
+                                    "lastName": "",
+                                    "email": ""
+                                },
+                                "unicorn": null,
+                                "text": "content of the post ...",
+                                "createdAt": {
+                                    "timezone": {
+                                        "name": "Europe/Brussels",
+                                        "location": {
+                                            "country_code": "BE",
+                                            "latitude": 50.83333,
+                                            "longitude": 4.33333,
+                                            "comments": ""
+                                        }
+                                    },
+                                    "offset": 3600,
+                                    "timestamp": 1548204515
+                                },
+                                "modifiedAt": {
+                                    "timezone": {
+                                        "name": "Europe/Brussels",
+                                        "location": {
+                                            "country_code": "BE",
+                                            "latitude": 50.83333,
+                                            "longitude": 4.33333,
+                                            "comments": ""
+                                        }
+                                    },
+                                    "offset": 3600,
+                                    "timestamp": 1548204515
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/post/update": {
+            "post": {
+                "tags": [
+                    "post"
+                ],
+                "summary": "Update the content of an existing post.",
+                "description": "Update the content of an existing post",
+                "operationId": "updatePostAction",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "postId",
+                        "in": "query",
+                        "description": "The id of the post",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "content",
+                        "in": "query",
+                        "description": "The content of the post",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "202": {
+                        "description": "Accepted",
+                        "examples": {
+                            "application/json": {
+                                "id": 1,
+                                "user": {
+                                    "id": 1,
+                                    "firstName": "David",
+                                    "lastName": "",
+                                    "email": ""
+                                },
+                                "unicorn": null,
+                                "text": "content of the post ...",
+                                "createdAt": {
+                                    "timezone": {
+                                        "name": "Europe/Brussels",
+                                        "location": {
+                                            "country_code": "BE",
+                                            "latitude": 50.83333,
+                                            "longitude": 4.33333,
+                                            "comments": ""
+                                        }
+                                    },
+                                    "offset": 3600,
+                                    "timestamp": 1548204515
+                                },
+                                "modifiedAt": {
+                                    "timezone": {
+                                        "name": "Europe/Brussels",
+                                        "location": {
+                                            "country_code": "BE",
+                                            "latitude": 50.83333,
+                                            "longitude": 4.33333,
+                                            "comments": ""
+                                        }
+                                    },
+                                    "offset": 3600,
+                                    "timestamp": 1548204515
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/post/list": {
+            "get": {
+                "tags": [
+                    "post"
+                ],
+                "summary": "Get a list of all posts.",
+                "description": "Get a list of all posts",
+                "operationId": "listPostsAction",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "examples": {
+                            "application/json": [
+                                {
+                                    "id": 1,
+                                    "user": {
+                                        "id": 1,
+                                        "firstName": "David",
+                                        "lastName": "",
+                                        "email": ""
+                                    },
+                                    "unicorn": null,
+                                    "text": "content of the post ...",
+                                    "createdAt": {
+                                        "timezone": {
+                                            "name": "Europe/Brussels",
+                                            "location": {
+                                                "country_code": "BE",
+                                                "latitude": 50.83333,
+                                                "longitude": 4.33333,
+                                                "comments": ""
+                                            }
+                                        },
+                                        "offset": 3600,
+                                        "timestamp": 1548204515
+                                    },
+                                    "modifiedAt": {
+                                        "timezone": {
+                                            "name": "Europe/Brussels",
+                                            "location": {
+                                                "country_code": "BE",
+                                                "latitude": 50.83333,
+                                                "longitude": 4.33333,
+                                                "comments": ""
+                                            }
+                                        },
+                                        "offset": 3600,
+                                        "timestamp": 1548204515
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/post/user/list": {
+            "get": {
+                "tags": [
+                    "post"
+                ],
+                "summary": "Get a list of all posts for a user.",
+                "description": "Get a list of all posts for a user",
+                "operationId": "listUserPostsAction",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "examples": {
+                            "application/json": [
+                                {
+                                    "id": 1,
+                                    "user": {
+                                        "id": 1,
+                                        "firstName": "David",
+                                        "lastName": "",
+                                        "email": ""
+                                    },
+                                    "unicorn": null,
+                                    "text": "content of the post ...",
+                                    "createdAt": {
+                                        "timezone": {
+                                            "name": "Europe/Brussels",
+                                            "location": {
+                                                "country_code": "BE",
+                                                "latitude": 50.83333,
+                                                "longitude": 4.33333,
+                                                "comments": ""
+                                            }
+                                        },
+                                        "offset": 3600,
+                                        "timestamp": 1548204515
+                                    },
+                                    "modifiedAt": {
+                                        "timezone": {
+                                            "name": "Europe/Brussels",
+                                            "location": {
+                                                "country_code": "BE",
+                                                "latitude": 50.83333,
+                                                "longitude": 4.33333,
+                                                "comments": ""
+                                            }
+                                        },
+                                        "offset": 3600,
+                                        "timestamp": 1548204515
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/post/delete": {
+            "delete": {
+                "tags": [
+                    "post"
+                ],
+                "summary": "Delete a post.",
+                "description": "Delete a post",
+                "operationId": "deletePostAction",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "202": {
+                        "description": "Accepted"
+                    }
+                }
+            }
+        },
+        "/store/buy": {
+            "post": {
+                "tags": [
+                    "store"
+                ],
+                "summary": "Buy a unicorn.",
+                "description": "Buy a unicorn",
+                "operationId": "buyUnicornAction",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "unicornId",
+                        "in": "query",
+                        "description": "The unicorn id",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "userId",
+                        "in": "query",
+                        "description": "The user id",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "202": {
+                        "description": "Accepted",
+                        "examples": {
+                            "application/json": {
+                                "id": 1,
+                                "name": "pinky",
+                                "description": "pink fury",
+                                "available": false,
+                                "user": {
+                                    "id": 1,
+                                    "firstName": "David",
+                                    "lastName": "",
+                                    "email": ""
+                                },
+                                "posts": []
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/list": {
             "get": {
                 "tags": [
@@ -66,10 +484,6 @@
         {
             "name": "store",
             "description": "Operations in the store"
-        },
-        {
-            "name": "user",
-            "description": "Operations about users"
         }
     ]
 }

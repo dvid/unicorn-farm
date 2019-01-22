@@ -10,6 +10,9 @@ see the need for authentication or user-management - people on the internet woul
 gods - infuriated by the creation of unicorns - have decided we only get a PHP webserver, forcing us to create the API in
 everyone's most loved framework: Symfony.
 
+## API Documentation
+Import web/swagger.json file into Postman as a collection.
+
 ## Project Requirements:
 - Symfony project
 - The API will be a public api

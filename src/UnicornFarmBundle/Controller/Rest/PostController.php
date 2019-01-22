@@ -10,7 +10,6 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
-use UnicornFarmBundle\Entity\Post;
 use UnicornFarmBundle\Service\PostService;
 use UnicornFarmBundle\Service\UnicornService;
 use UnicornFarmBundle\Service\UserService;
@@ -56,10 +55,90 @@ class PostController extends Controller
     }
 
     /**
-    * @Route(path="/post/create", methods={"POST"})
-    * @param Request $request
-    * @return Response
-    */
+     * @SWG\Post(
+     *      path="/post/create",
+     *      tags={"post"},
+     *      summary="Create a post.",
+     *      description="Create a post",
+     *      operationId="createPostAction",
+     *      produces={"application/json"},
+     *      @SWG\Parameter(
+     *         name="firstName",
+     *         required=true,
+     *         in="query",
+     *         description="The user first name",
+     *         type="string",
+     *     ),
+     *      @SWG\Parameter(
+     *         name="lastName",
+     *         required=true,
+     *         in="query",
+     *         description="The user last name",
+     *         type="string",
+     *     ),
+     *      @SWG\Parameter(
+     *         name="text",
+     *         required=true,
+     *         in="query",
+     *         description="The content of the post ...",
+     *         type="string",
+     *     ),
+     *      @SWG\Parameter(
+     *         name="unicornId",
+     *         required=false,
+     *         in="query",
+     *         description="The unicorn id to link the post to",
+     *         type="integer",
+     *     ),
+     *     @SWG\Response(
+     *          response=201,
+     *          description="Created",
+     *          examples={
+     *              "application/json":{
+     *                  "id":1,
+     *                  "user": {
+     *                      "id":1,
+     *                      "firstName":"David",
+     *                      "lastName":"",
+     *                      "email":"",
+     *                  },
+     *                  "unicorn":null,
+     *                  "text":"content of the post ...",
+     *                  "createdAt": {
+     *                      "timezone": {
+     *                          "name":"Europe/Brussels",
+     *                          "location": {
+     *                              "country_code": "BE",
+     *                              "latitude": 50.83333,
+     *                              "longitude": 4.33333,
+     *                              "comments": ""
+     *                              },
+     *                          },
+     *                      "offset": 3600,
+     *                      "timestamp": 1548204515
+     *                  },
+     *                  "modifiedAt": {
+     *                      "timezone": {
+     *                          "name":"Europe/Brussels",
+     *                          "location": {
+     *                              "country_code": "BE",
+     *                              "latitude": 50.83333,
+     *                              "longitude": 4.33333,
+     *                              "comments": ""
+     *                              },
+     *                          },
+     *                      "offset": 3600,
+     *                      "timestamp": 1548204515
+     *                  },
+     *              }
+     *          }
+     *     ),
+     * )
+     *
+     * @Route(path="/post/create", methods={"POST"})
+     * @param Request $request
+     * @return Response
+     */
     public function createPostAction(Request $request)
     {
         $user = $this->userService->getUserByName(
@@ -84,6 +163,72 @@ class PostController extends Controller
     }
 
     /**
+     * @SWG\Post(
+     *      path="/post/link",
+     *      tags={"post"},
+     *      summary="Link an existing post to a unicorn.",
+     *      description="Link an existing post to a unicorn",
+     *      operationId="linkPostToUnicornAction",
+     *      produces={"application/json"},
+     *      @SWG\Parameter(
+     *         name="postId",
+     *         required=true,
+     *         in="query",
+     *         description="The id of the post",
+     *         type="integer",
+     *     ),
+     *      @SWG\Parameter(
+     *         name="unicornId",
+     *         required=true,
+     *         in="query",
+     *         description="The id of the unicorn to link to",
+     *         type="integer",
+     *     ),
+     *     @SWG\Response(
+     *          response=202,
+     *          description="Accepted",
+     *          examples={
+     *              "application/json":{
+     *                  "id":1,
+     *                  "user": {
+     *                      "id":1,
+     *                      "firstName":"David",
+     *                      "lastName":"",
+     *                      "email":"",
+     *                  },
+     *                  "unicorn":null,
+     *                  "text":"content of the post ...",
+     *                  "createdAt": {
+     *                      "timezone": {
+     *                          "name":"Europe/Brussels",
+     *                          "location": {
+     *                              "country_code": "BE",
+     *                              "latitude": 50.83333,
+     *                              "longitude": 4.33333,
+     *                              "comments": ""
+     *                              },
+     *                          },
+     *                      "offset": 3600,
+     *                      "timestamp": 1548204515
+     *                  },
+     *                  "modifiedAt": {
+     *                      "timezone": {
+     *                          "name":"Europe/Brussels",
+     *                          "location": {
+     *                              "country_code": "BE",
+     *                              "latitude": 50.83333,
+     *                              "longitude": 4.33333,
+     *                              "comments": ""
+     *                              },
+     *                          },
+     *                      "offset": 3600,
+     *                      "timestamp": 1548204515
+     *                  },
+     *              }
+     *          }
+     *     ),
+     * )
+     *
      * @Route(path="/post/link", methods={"POST"})
      * @param Request $request
      * @return Response
@@ -100,11 +245,77 @@ class PostController extends Controller
                 $post,
                 'json'
             ),
-            Response::HTTP_OK,
+            Response::HTTP_ACCEPTED,
             ['content-type' => 'application/json']);
     }
 
     /**
+     * @SWG\Post(
+     *      path="/post/update",
+     *      tags={"post"},
+     *      summary="Update the content of an existing post.",
+     *      description="Update the content of an existing post",
+     *      operationId="updatePostAction",
+     *      produces={"application/json"},
+     *      @SWG\Parameter(
+     *         name="postId",
+     *         required=true,
+     *         in="query",
+     *         description="The id of the post",
+     *         type="integer",
+     *     ),
+     *      @SWG\Parameter(
+     *         name="content",
+     *         required=true,
+     *         in="query",
+     *         description="The content of the post",
+     *         type="string",
+     *     ),
+     *     @SWG\Response(
+     *          response=202,
+     *          description="Accepted",
+     *          examples={
+     *              "application/json":{
+     *                  "id":1,
+     *                  "user": {
+     *                      "id":1,
+     *                      "firstName":"David",
+     *                      "lastName":"",
+     *                      "email":"",
+     *                  },
+     *                  "unicorn":null,
+     *                  "text":"content of the post ...",
+     *                  "createdAt": {
+     *                      "timezone": {
+     *                          "name":"Europe/Brussels",
+     *                          "location": {
+     *                              "country_code": "BE",
+     *                              "latitude": 50.83333,
+     *                              "longitude": 4.33333,
+     *                              "comments": ""
+     *                              },
+     *                          },
+     *                      "offset": 3600,
+     *                      "timestamp": 1548204515
+     *                  },
+     *                  "modifiedAt": {
+     *                      "timezone": {
+     *                          "name":"Europe/Brussels",
+     *                          "location": {
+     *                              "country_code": "BE",
+     *                              "latitude": 50.83333,
+     *                              "longitude": 4.33333,
+     *                              "comments": ""
+     *                              },
+     *                          },
+     *                      "offset": 3600,
+     *                      "timestamp": 1548204515
+     *                  },
+     *              }
+     *          }
+     *     ),
+     * )
+     *
      * @Route(path="/post/update", methods={"POST"})
      * @param Request $request
      * @return Response
@@ -120,16 +331,68 @@ class PostController extends Controller
                 $post,
                 'json'
             ),
-            Response::HTTP_OK,
+            Response::HTTP_ACCEPTED,
             ['content-type' => 'application/json']);
     }
 
     /**
+     * @SWG\Get(
+     *      path="/post/list",
+     *      tags={"post"},
+     *      summary="Get a list of all posts.",
+     *      description="Get a list of all posts",
+     *      operationId="listPostsAction",
+     *      produces={"application/json"},
+     *      @SWG\Response(
+     *          response=200,
+     *          description="Success",
+     *          examples={
+     *              "application/json":{
+     *              {
+     *                  "id":1,
+     *                  "user": {
+     *                      "id":1,
+     *                      "firstName":"David",
+     *                      "lastName":"",
+     *                      "email":"",
+     *                  },
+     *                  "unicorn":null,
+     *                  "text":"content of the post ...",
+     *                  "createdAt": {
+     *                      "timezone": {
+     *                          "name":"Europe/Brussels",
+     *                          "location": {
+     *                              "country_code": "BE",
+     *                              "latitude": 50.83333,
+     *                              "longitude": 4.33333,
+     *                              "comments": ""
+     *                              },
+     *                          },
+     *                      "offset": 3600,
+     *                      "timestamp": 1548204515
+     *                  },
+     *                  "modifiedAt": {
+     *                      "timezone": {
+     *                          "name":"Europe/Brussels",
+     *                          "location": {
+     *                              "country_code": "BE",
+     *                              "latitude": 50.83333,
+     *                              "longitude": 4.33333,
+     *                              "comments": ""
+     *                              },
+     *                          },
+     *                      "offset": 3600,
+     *                      "timestamp": 1548204515
+     *                  },
+     *              }
+     *          }}
+     *     ),
+     * )
+     *
      * @Route(path="/post/list", methods={"GET"})
-     * @param Request $request
      * @return Response
      */
-    public function listPostsAction(Request $request)
+    public function listPostsAction()
     {
         $posts = $this->serializer->serialize(
             $this->postService->getAllPosts(),
@@ -143,7 +406,60 @@ class PostController extends Controller
     }
 
     /**
-     * @Route(path="/post/user/list", methods={"POST"})
+     * @SWG\Get(
+     *      path="/post/user/list",
+     *      tags={"post"},
+     *      summary="Get a list of all posts for a user.",
+     *      description="Get a list of all posts for a user",
+     *      operationId="listUserPostsAction",
+     *      produces={"application/json"},
+     *      @SWG\Response(
+     *          response=200,
+     *          description="Success",
+     *          examples={
+     *              "application/json":{
+     *              {
+     *                  "id":1,
+     *                  "user": {
+     *                      "id":1,
+     *                      "firstName":"David",
+     *                      "lastName":"",
+     *                      "email":"",
+     *                  },
+     *                  "unicorn":null,
+     *                  "text":"content of the post ...",
+     *                  "createdAt": {
+     *                      "timezone": {
+     *                          "name":"Europe/Brussels",
+     *                          "location": {
+     *                              "country_code": "BE",
+     *                              "latitude": 50.83333,
+     *                              "longitude": 4.33333,
+     *                              "comments": ""
+     *                              },
+     *                          },
+     *                      "offset": 3600,
+     *                      "timestamp": 1548204515
+     *                  },
+     *                  "modifiedAt": {
+     *                      "timezone": {
+     *                          "name":"Europe/Brussels",
+     *                          "location": {
+     *                              "country_code": "BE",
+     *                              "latitude": 50.83333,
+     *                              "longitude": 4.33333,
+     *                              "comments": ""
+     *                              },
+     *                          },
+     *                      "offset": 3600,
+     *                      "timestamp": 1548204515
+     *                  },
+     *              }
+     *          }}
+     *     ),
+     * )
+     *
+     * @Route(path="/post/user/list", methods={"GET"})
      * @param Request $request
      * @return Response
      */
@@ -161,6 +477,19 @@ class PostController extends Controller
     }
 
     /**
+     * @SWG\Delete(
+     *      path="/post/delete",
+     *      tags={"post"},
+     *      summary="Delete a post.",
+     *      description="Delete a post",
+     *      operationId="deletePostAction",
+     *      produces={"application/json"},
+     *      @SWG\Response(
+     *          response=202,
+     *          description="Accepted",
+     *      )
+     * )
+     *
      * @Route(path="/post/delete", methods={"DELETE"})
      * @param Request $request
      * @return Response
@@ -170,8 +499,7 @@ class PostController extends Controller
         $this->postService->deletePost($request->query->get('id'));
 
         return new Response(
-            'success',
-            Response::HTTP_ACCEPTED,
-            ['content-type' => 'application/json']);
+            'accepted',
+            Response::HTTP_ACCEPTED);
     }
 }

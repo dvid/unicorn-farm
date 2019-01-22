@@ -84,10 +84,6 @@ class UnicornController extends Controller
      *      name="store",
      *      description="Operations in the store"
      * )
-     * @SWG\Tag(
-     *      name="user",
-     *      description="Operations about users"
-     * )
      */
 
     /**
