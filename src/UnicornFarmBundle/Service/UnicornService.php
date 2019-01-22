@@ -21,10 +21,16 @@ final class UnicornService
      */
     private $entityManager;
 
-    public function __construct(EntityManagerInterface $entityManager)
+    /**
+     * @var MailService
+     */
+    private $mailService;
+
+    public function __construct(EntityManagerInterface $entityManager, MailService $mailService)
     {
         $this->entityManager = $entityManager;
         $this->unicornRepository = $this->entityManager->getRepository(Unicorn::class);
+        $this->mailService = $entityManager;
     }
 
     public function getUnicorn($unicornId)
@@ -85,13 +91,19 @@ final class UnicornService
 
         $pem = $this->entityManager->getRepository(Post::class);
         $posts = $pem->findAllByUnicornId($unicornId);
+        $countPosts = count($posts);
         foreach ($posts as $post){
             $pem->delete($post);
         }
 
         $unicorn->setAvailable(0);
         $unicorn->setUser($user);
+
         $this->unicornRepository->save($unicorn);
+
+        //TODO ENABLE swiftmailer-bundle and uncomment line
+        //$this->mailService->sendMail($user, $countPosts);
+
         return $unicorn;
     }
 }

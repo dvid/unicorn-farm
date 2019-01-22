@@ -20,5 +20,5 @@ services:
         resource: '../../src/UnicornFarmBundle/*'
         # you can exclude directories or files
         # but if a service is unused, it's removed anyway
-        exclude: '../../src/UnicornFarmBundle/{Entity,Repository,Tests}'
+        exclude: '../../src/UnicornFarmBundle/{Entity,Mail,Repository,Tests}'
 

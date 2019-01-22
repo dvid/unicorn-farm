@@ -124,5 +124,15 @@ class User
     {
         return $this->email;
     }
+
+    /**
+     * Get email
+     *
+     * @return string
+     */
+    public function getFullName()
+    {
+        return $this->getFirstName() . ' ' . $this->getLastName();
+    }
 }
 

@@ -32,6 +32,7 @@ everyone's most loved framework: Symfony.
 - I should receive an email congratulating me and sending me the amount of posts that were made for my newly bought unicorn
 
 ## TODO
+Update to PHP7 and install swiftmailer-bundle
 Update to PHP7 and add Scalar type hints
 Update to PHP7 and add Return type declarations
 Improve response codes
