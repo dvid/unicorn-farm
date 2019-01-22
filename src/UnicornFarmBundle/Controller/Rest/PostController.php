@@ -63,15 +63,42 @@ class PostController extends Controller
     */
     public function createPostAction(Request $request)
     {
-        $user  = $this->userService->getUserByName(
+        $user = $this->userService->getUserByName(
             $request->query->get('firstName'),
-            $request->query->get('lastName'));
+            $request->query->get('lastName')
+        );
 
-        $newPost = $this->postService->addPost($user, $request->query->get('text'));
+        $unicorn = null;
+        if ($request->query->get('unicornId')){
+            $unicorn = $this->unicornService->getUnicorn($request->query->get('unicornId'));
+        }
+
+        $newPost = $this->postService->addPost($user, $request->query->get('text'), $unicorn);
 
         return new Response(
             $this->serializer->serialize(
                 $newPost,
+                'json'
+            ),
+            Response::HTTP_OK,
+            ['content-type' => 'application/json']);
+    }
+
+    /**
+     * @Route(path="/post/link", methods={"POST"})
+     * @param Request $request
+     * @return Response
+     */
+    public function linkPostToUnicornAction(Request $request)
+    {
+        $post = $this->postService->getPost($request->query->get('postId'));
+        $unicorn = $this->unicornService->getUnicorn($request->query->get('unicornId'));
+        $post = $this->postService->linkPostToUnicorn($post, $unicorn);
+        $post = $this->postService->updatePost($post);
+
+        return new Response(
+            $this->serializer->serialize(
+                $post,
                 'json'
             ),
             Response::HTTP_OK,

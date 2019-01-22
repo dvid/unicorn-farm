@@ -41,16 +41,17 @@ final class PostService
         return $this->postRepository->findAll();
     }
 
-    public function addPost(User $user, $text)
+    public function addPost(User $user, $text, Unicorn $unicorn = null)
     {
         $post = new Post();
         $post->setUser($user);
         $post->setText($text);
+        $post->setUnicorn($unicorn);
         $this->postRepository->save($post);
         return $post;
     }
 
-    public function linkPostToUser(Post $post, Unicorn $unicorn)
+    public function linkPostToUnicorn(Post $post, Unicorn $unicorn)
     {
         $post = $this->postRepository->findById($post->getId());
         if (!$post) {
