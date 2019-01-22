@@ -33,4 +33,6 @@ everyone's most loved framework: Symfony.
 
 ## TODO
 Update to PHP7 and add Scalar type hints
-Update to PHP7 and add 
+Update to PHP7 and add Return type declarations
+Improve response codes
+Improve documentation by adding all response codes

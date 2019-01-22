@@ -80,7 +80,7 @@ class PostController extends Controller
                 $newPost,
                 'json'
             ),
-            Response::HTTP_OK,
+            Response::HTTP_CREATED,
             ['content-type' => 'application/json']);
     }
 
@@ -158,6 +158,21 @@ class PostController extends Controller
         return new Response(
             $posts,
             Response::HTTP_OK,
+            ['content-type' => 'application/json']);
+    }
+
+    /**
+     * @Route(path="/post/delete", methods={"DELETE"})
+     * @param Request $request
+     * @return Response
+     */
+    public function deletePostAction(Request $request)
+    {
+        $this->postService->deletePost($request->query->get('id'));
+
+        return new Response(
+            'success',
+            Response::HTTP_ACCEPTED,
             ['content-type' => 'application/json']);
     }
 }
