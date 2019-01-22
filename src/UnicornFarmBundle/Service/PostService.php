@@ -41,6 +41,11 @@ final class PostService
         return $this->postRepository->findAll();
     }
 
+    public function getAllPostsFromUserId($userId)
+    {
+        return $this->postRepository->findAllByUserId($userId);
+    }
+
     public function addPost(User $user, $text, Unicorn $unicorn = null)
     {
         $post = new Post();

@@ -124,4 +124,40 @@ class PostController extends Controller
             Response::HTTP_OK,
             ['content-type' => 'application/json']);
     }
+
+    /**
+     * @Route(path="/post/list", methods={"GET"})
+     * @param Request $request
+     * @return Response
+     */
+    public function listPostsAction(Request $request)
+    {
+        $posts = $this->serializer->serialize(
+            $this->postService->getAllPosts(),
+            'json'
+        );
+
+        return new Response(
+            $posts,
+            Response::HTTP_OK,
+            ['content-type' => 'application/json']);
+    }
+
+    /**
+     * @Route(path="/post/user/list", methods={"POST"})
+     * @param Request $request
+     * @return Response
+     */
+    public function listUserPostsAction(Request $request)
+    {
+        $posts = $this->serializer->serialize(
+            $this->postService->getAllPostsFromUserId($request->query->get('userId')),
+            'json'
+        );
+
+        return new Response(
+            $posts,
+            Response::HTTP_OK,
+            ['content-type' => 'application/json']);
+    }
 }

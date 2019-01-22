@@ -31,6 +31,23 @@ class PostRepository extends EntityRepository
     }
 
     /**
+     * @param int $userId
+     * @return Post
+     */
+    public function findAllByUserId($userId)
+    {
+        $qb = $this->createQueryBuilder('p');
+
+        $qb->select('p')
+            ->where('p.user = :mid')
+            ->setParameter('mid', $userId);
+
+        $query = $qb->getQuery();
+
+        return $query->getResult();
+    }
+
+    /**
      * @param Post $post
      */
     public function save(Post $post)
