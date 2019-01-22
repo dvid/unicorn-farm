@@ -6,7 +6,7 @@
         "contact": {
             "email": "support@example.com"
         },
-        "version": "1.0.0"
+        "version": "3.0.0"
     },
     "paths": {
         "/list": {
@@ -20,23 +20,34 @@
                 "produces": [
                     "application/json"
                 ],
-                "parameters": [
-                    {
-                        "name": "order",
-                        "in": "query",
-                        "description": "Order criterion",
-                        "type": "string"
-                    },
-                    {
-                        "name": "page",
-                        "in": "query",
-                        "description": "Page number",
-                        "type": "integer"
-                    }
-                ],
                 "responses": {
                     "200": {
-                        "description": "Success"
+                        "description": "Success",
+                        "examples": {
+                            "application/json": [
+                                {
+                                    "id": 1,
+                                    "name": "pinky",
+                                    "description": "pink fury",
+                                    "available": false,
+                                    "user": {
+                                        "id": 1,
+                                        "firstName": "David",
+                                        "lastName": "",
+                                        "email": ""
+                                    },
+                                    "posts": []
+                                },
+                                {
+                                    "id": 2,
+                                    "name": "blacky",
+                                    "description": "black fury",
+                                    "available": true,
+                                    "user": null,
+                                    "posts": []
+                                }
+                            ]
+                        }
                     }
                 }
             }

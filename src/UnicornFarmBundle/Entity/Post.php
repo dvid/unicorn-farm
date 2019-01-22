@@ -2,6 +2,7 @@
 
 namespace UnicornFarmBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use UnicornFarmBundle\Entity\User;
 
@@ -38,30 +39,45 @@ class Post
     private $text;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Unicorn", inversedBy="posts")
+     * @ORM\JoinColumn(name="unicorn_id", referencedColumnName="id")
+     */
+    private $unicorn;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="createdAt", type="datetime")
      */
-    protected $createdAt;
+    private $createdAt;
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="modifiedAt", type="datetime")
      */
-    protected $modifiedAt;
+    private $modifiedAt;
+
+
 
     /**
      * Post constructor.
-     *
-     * @param string $text
      */
-    public function __construct($text)
+    public function __construct()
     {
-        $this->text = $text;
-
         $this->createdAt = new \DateTime();
         $this->modifiedAt = null;
+        $this->markUpdated();
+    }
+
+    /**
+     * @return $this
+     */
+    protected function markUpdated()
+    {
+        $this->modifiedAt = new \DateTime();
+
+        return $this;
     }
 
     /**
@@ -96,6 +112,30 @@ class Post
     public function getUser()
     {
         return $this->user;
+    }
+
+    /**
+     * Get unicorn
+     *
+     * @return int
+     */
+    public function getUnicorn()
+    {
+        return $this->unicorn;
+    }
+
+    /**
+     * Set unicorn
+     *
+     * @param integer $unicorn
+     *
+     * @return Post
+     */
+    public function setUnicorn($unicorn)
+    {
+        $this->unicorn = $unicorn;
+
+        return $this;
     }
 
     /**

@@ -34,13 +34,12 @@ final class UnicornService
         return $unicorn;
     }
 
-    /*TODO Implement page and order*/
     public function getAllUnicorns()
     {
         return $this->unicornRepository->findAll();
     }
 
-    public function addUnicorn($name, $description)
+    public function addUnicorn($name, $description = "")
     {
         $unicorn = new Unicorn();
         $unicorn->setName($name);

@@ -2,8 +2,11 @@
 
 namespace UnicornFarmBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use UnicornFarmBundle\Entity\User;
+use UnicornFarmBundle\Entity\Post;
+use Swagger\Annotations as SWG;
 
 /**
  * Unicorn
@@ -50,6 +53,19 @@ class Unicorn
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     private $user;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Post", mappedBy="unicorn")
+     */
+    private $posts;
+
+    /**
+     * Unicorn constructor
+     */
+    public function __construct() {
+        $this->available = 1;
+        $this->posts = new ArrayCollection();
+    }
 
     /**
      * Get id
@@ -156,5 +172,26 @@ class Unicorn
 
         return $this;
     }
-}
 
+    /**
+     * Get posts
+     *
+     * @return ArrayCollection
+     */
+    public function getPosts()
+    {
+        return $this->posts;
+    }
+
+    /**
+     * Set posts
+     *
+     * @param ArrayCollection $posts
+     *
+     * @return Unicorn
+     */
+    public function setPosts($posts)
+    {
+        $this->posts = $posts;
+    }
+}
