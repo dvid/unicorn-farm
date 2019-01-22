@@ -39,7 +39,7 @@ class PostController extends Controller
     private $serializer;
 
     /**
-     * UnicornController constructor.
+     * PostController constructor.
      * @param UnicornService $unicornService
      * @param PostService $postService
      * @param UserService $userService

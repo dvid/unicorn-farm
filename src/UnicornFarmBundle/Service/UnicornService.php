@@ -3,8 +3,10 @@
 namespace UnicornFarmBundle\Service;
 
 use Doctrine\ORM\EntityNotFoundException;
+use UnicornFarmBundle\Entity\Post;
 use UnicornFarmBundle\Entity\Unicorn;
 use Doctrine\ORM\EntityManagerInterface;
+use UnicornFarmBundle\Entity\User;
 use UnicornFarmBundle\Repository\UnicornRepository;
 
 final class UnicornService
@@ -68,14 +70,27 @@ final class UnicornService
         }
     }
 
-    public function sellUnicorn($unicornId, $userId)
+    public function buyUnicorn($unicornId, $userId)
     {
         $unicorn = $this->unicornRepository->findById($unicornId);
         if (!$unicorn) {
             return null;
         }
+
+        $uem = $this->entityManager->getRepository(User::class);
+        $user = $uem->findById($userId);
+        if (!$user) {
+            return null;
+        }
+
+        $pem = $this->entityManager->getRepository(Post::class);
+        $posts = $pem->findAllByUnicornId($unicornId);
+        foreach ($posts as $post){
+            $pem->delete($post);
+        }
+
         $unicorn->setAvailable(0);
-        $unicorn->setUser($userId);
+        $unicorn->setUser($user);
         $this->unicornRepository->save($unicorn);
         return $unicorn;
     }

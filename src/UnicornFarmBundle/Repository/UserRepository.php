@@ -14,6 +14,23 @@ use UnicornFarmBundle\Entity\User;
 class UserRepository extends EntityRepository
 {
     /**
+     * @param int $userId
+     * @return User
+     */
+    public function findById($userId)
+    {
+        $qb = $this->createQueryBuilder('u');
+
+        $qb->select('u')
+            ->where('u.id = :mid')
+            ->setParameter('mid', $userId);
+
+        $query = $qb->getQuery();
+
+        return $query->getSingleResult();
+    }
+
+    /**
      * @param string $firstName
      * @param string $lastName
      * @return Unicorn

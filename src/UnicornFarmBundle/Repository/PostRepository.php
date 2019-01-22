@@ -31,6 +31,23 @@ class PostRepository extends EntityRepository
     }
 
     /**
+     * @param int $unicornId
+     * @return Post
+     */
+    public function findAllByUnicornId($unicornId)
+    {
+        $qb = $this->createQueryBuilder('p');
+
+        $qb->select('p')
+            ->where('p.unicorn = :mid')
+            ->setParameter('mid', $unicornId);
+
+        $query = $qb->getQuery();
+
+        return $query->getResult();
+    }
+
+    /**
      * @param int $userId
      * @return Post
      */
