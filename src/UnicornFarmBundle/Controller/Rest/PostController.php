@@ -104,4 +104,24 @@ class PostController extends Controller
             Response::HTTP_OK,
             ['content-type' => 'application/json']);
     }
+
+    /**
+     * @Route(path="/post/update", methods={"POST"})
+     * @param Request $request
+     * @return Response
+     */
+    public function updatePostAction(Request $request)
+    {
+        $post = $this->postService->getPost($request->query->get('postId'));
+        $post = $post->setText($request->query->get('content'));
+        $post = $this->postService->updatePost($post);
+
+        return new Response(
+            $this->serializer->serialize(
+                $post,
+                'json'
+            ),
+            Response::HTTP_OK,
+            ['content-type' => 'application/json']);
+    }
 }
