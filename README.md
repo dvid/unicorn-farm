@@ -36,4 +36,5 @@ everyone's most loved framework: Symfony.
 - Update to PHP7 and add Scalar type hints
 - Update to PHP7 and add Return type declarations
 - Improve response codes
-- Improve documentation by adding all response codes
+- Improve documentation by adding all response codes in Swagger responses
+- Improve documentation by adding object schema in Swagger responses
