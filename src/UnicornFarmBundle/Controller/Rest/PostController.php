@@ -70,16 +70,6 @@ class PostController extends Controller
 
         $newPost = $this->postService->addPost($user, $text);
 
-        /*
-        $newPost = new Post();
-        $newPost->setText($text);
-        $newPost->setUser($user);
-
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($newPost);
-        $em->flush();
-        */
-
         $unicorns = $this->serializer->serialize(
             $newPost,
             'json'

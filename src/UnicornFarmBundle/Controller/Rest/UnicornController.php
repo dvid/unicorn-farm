@@ -152,33 +152,14 @@ class UnicornController extends Controller
      */
     public function testAction(Request $request)
     {
-
         $newUser = $this->userService->addUser("John", "Doe", "jd@mail.com");
         $newUnicorn = $this->unicornService->addUnicorn("Blanko33");
         $newPost = $this->postService->addPost($newUser, "test text");
 
-        /*
-        $newUser = new User();
-        $newUser->setFirstName("John");
-        $newUser->setLastName("Doe");
-        $newUser->setEmail("jd@mail.com");
-
-        $newUnicorn = new Unicorn();
-        $newUnicorn->setName("Blanko");
-
-        $newPost = new Post();
-        $newPost->setText("test");
-        $newPost->setUser($newUser);
-        $newPost->setUnicorn($newUnicorn);
-
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($newUser);
-        //$em->persist($newUnicorn);
-        $em->persist($newPost);
-        $em->flush();
-        */
-
-        $unicorn = $this->serializer->serialize($this->unicornService->getUnicorn(1), 'json');
-        return new Response($unicorn);
+        $unicorns = $this->serializer->serialize(
+            $this->unicornService->getAllUnicorns(),
+            'json'
+        );
+        return new Response($unicorns);
     }
 }
