@@ -61,22 +61,19 @@ class PostController extends Controller
     * @param Request $request
     * @return Response
     */
-        public function createPostAction(Request $request)
+    public function createPostAction(Request $request)
     {
         $user  = $this->userService->getUserByName(
             $request->query->get('firstName'),
             $request->query->get('lastName'));
-        $text = $request->query->get('text');
 
-        $newPost = $this->postService->addPost($user, $text);
-
-        $unicorns = $this->serializer->serialize(
-            $newPost,
-            'json'
-        );
+        $newPost = $this->postService->addPost($user, $request->query->get('text'));
 
         return new Response(
-            $unicorns,
+            $this->serializer->serialize(
+                $newPost,
+                'json'
+            ),
             Response::HTTP_OK,
             ['content-type' => 'application/json']);
     }

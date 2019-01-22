@@ -30,7 +30,7 @@ class UserRepository extends EntityRepository
 
         $query = $qb->getQuery();
 
-        return $query->getSingleResult();
+        return $query->getOneOrNullResult();
     }
 
     /**

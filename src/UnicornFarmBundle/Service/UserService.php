@@ -38,7 +38,7 @@ final class UserService
     {
         $user = $this->userRepository->findByUserName($firstName, $lastName);
         if (!$user) {
-            throw new EntityNotFoundException('User with id does not exist!');
+            throw new EntityNotFoundException('User with this firstName and lastName does not exist!');
         }
         return $user;
     }
