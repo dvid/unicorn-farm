@@ -413,6 +413,13 @@ class PostController extends Controller
      *      description="Get a list of all posts for a user",
      *      operationId="listUserPostsAction",
      *      produces={"application/json"},
+     *      @SWG\Parameter(
+     *         name="userId",
+     *         required=true,
+     *         in="query",
+     *         description="The user id",
+     *         type="integer",
+     *     ),
      *      @SWG\Response(
      *          response=200,
      *          description="Success",
@@ -484,6 +491,13 @@ class PostController extends Controller
      *      description="Delete a post",
      *      operationId="deletePostAction",
      *      produces={"application/json"},
+     *      @SWG\Parameter(
+     *         name="id",
+     *         required=true,
+     *         in="query",
+     *         description="The id of the post to delete",
+     *         type="integer",
+     *     ),
      *      @SWG\Response(
      *          response=202,
      *          description="Accepted",

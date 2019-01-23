@@ -312,6 +312,15 @@
                 "produces": [
                     "application/json"
                 ],
+                "parameters": [
+                    {
+                        "name": "userId",
+                        "in": "query",
+                        "description": "The user id",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Success",
@@ -370,6 +379,15 @@
                 "operationId": "deletePostAction",
                 "produces": [
                     "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "The id of the post to delete",
+                        "required": true,
+                        "type": "integer"
+                    }
                 ],
                 "responses": {
                     "202": {
